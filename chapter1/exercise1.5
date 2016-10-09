@@ -1,6 +1,17 @@
 #lang racket
-(define (p) (p))
+
+;; applicative vs normal order test
+;; In which order are the functions evaluated?
+;; Applicative order:
+;; Normal order;
+
+(define (p) (p)) ;; recursive function without a base case, runs forever
+
 (define (test x y)
   (if (= x 0) 0 y))
 
+;; Running this test on a applicative order interpreter results in an eternal loop
+;; since p calls itself.
 (test 0 (p))
+;; Normal order will not evaluate a function until needed, so the test will terminate since
+;; the first parameter is zero, and the if-check will return zero as well
