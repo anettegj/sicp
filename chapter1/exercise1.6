@@ -9,9 +9,10 @@
 
 ;; Newtons method to calculate the square root
 (define (square x) (* x x))
+
 (define (sqrt-iter guess x)
  (if (good-enough? guess x)
- ;; (new-if (good-enough? guess x)
+ ;; (new-if (good-enough? guess x) ;; This doesn't work
           guess
           (sqrt-iter (improve guess x) x)
           )
@@ -28,5 +29,15 @@
 (define (sqrt x)
  (sqrt-iter 1.0 x))
 
-(sqrt 16)
-(new-if (good-enough? 1 4) false true)
+;; The built in if-statement is a special form and is not executed the
+;; same way as a user-defined function. 
+;; 
+;; As a user-defined function the parameters of new-if will be evaluated
+;; and passed in to the method. So both the then-clause and the else-clause
+;; will be evaluated. The else-clause is the sqrt-iter expression which calls
+;; itself, calling new-if again thus leading into an eternal loop.
+
+(sqrt 16) ;; using the new-if method in sqrt-iter will turn this call into an eternal loop
+;; The call below will terminate as expected. It is not the new-if that is a
+;; problem in itself, it's using it in a recursive manner that causes the issue.
+(new-if (good-enough? 1 4) false true) 

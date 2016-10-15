@@ -3,7 +3,11 @@
 ;; applicative vs normal order test
 ;; In which order are the functions evaluated?
 ;; Applicative order:
-;; Normal order;
+;;   evalulate the inner most expression and pass down the result as an argument.
+;;   Prevents having to evaluate the same expression multiple times
+;; Normal order:
+;;   Expand all nested proceedure calls before evaulating. Might cause the same
+;;   expression multiple times
 
 (define (p) (p)) ;; recursive function without a base case, runs forever
 
